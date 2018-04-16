@@ -1,0 +1,125 @@
+var W,H;
+var ctx,canvas,audioCtx,decor,canvasFond;
+var source;
+var rythme = 1000;
+var nextR = 1000;
+var img = {};
+var keys = [];
+var actions = ["p0","p0","p0","p0"];
+var scrollAct = 0;
+var touche = 0;
+var select = 0;
+var heros = new Perso();
+var elements = [];
+var actual = ["","","","","","","","","","","","","",""];
+var particles = [[""],[""],[""],[""],[""],[""],[""],[""],[""],[""],[""],[""],[""],[""],[""]];
+var level = 0;
+var goOn = 1;
+
+var lines = [0,0.25,0.5,0.75,1];
+var currentNotes = [];
+var nNotes = 0;
+// Notes sous la forme : [nLigne,temps,type]  type  0 : point simple
+var notes = [[0,100,0],[1,100,0],[2,200,0],[3,500,0],[4,1000,0],[0,100,0],[0,100,0],[0,100,0],[0,100,0],[0,100,0],[0,100,0],[0,100,0],[0,100,0],[0,100,0],[0,100,0]];
+var largeur = 10;
+var horizon = 10;
+
+
+//donnee
+
+
+// programme
+
+function rnd(max){
+    return Math.floor(Math.floor(Math.random()*max));
+}
+
+function charge(){
+    var imgL = ["p0","p1","p2","null","arbre","porte"];
+    var chargement = imgL.length;
+    imgL.forEach(
+        function(e,i){
+            img[e] = new Image();
+            img[e].src = "images/" + e + ".png";
+            img[e].onload = function(){
+                chargement -= 1;
+                if (chargement == 0) beginMusic("champion_road.ogg");
+            };
+        }
+    );
+}
+
+function resize(){
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.setAttribute("width",W);
+    canvas.setAttribute("height",H);
+    largeur = W/20;
+    horizon = H/10 * 9;
+}
+
+function move(x,y){
+
+}
+
+function click(x,y){
+
+}
+
+function start(){
+    canvas = document.querySelector("#canvas");
+    ctx = canvas.getContext("2d");
+    W = canvas.width;
+    H = canvas.height;
+    resize();
+    document.addEventListener(
+        "keydown",
+        function (event){
+            event.preventDefault();
+            event.stopPropagation();
+            if (keys[event.keyCode] != 1){
+                keys[event.keyCode] = 1;
+                touche += 1;
+            }
+            if (goOn == 0) relife();
+        }
+    );
+    document.addEventListener(
+        "keyup",
+        function (event){
+            event.preventDefault();
+            event.stopPropagation();
+            touche -= 1;
+            keys[event.keyCode] = 0;
+        }
+    );
+    charge();
+}
+
+function animation(){
+    var f = function(t) {
+        paint(t);
+        window.requestAnimationFrame(f);
+    };
+    window.requestAnimationFrame(f);
+}
+
+function paint(t){
+    ctx.fillStyle = "rgb(0,0,0)";
+    ctx.fillRect(0,0,W,H);
+    ctx.globalAlpha = 0.2;
+    drawNotes(source.currentTime);
+    ctx.globalAlpha = 1;
+}
+
+function beginMusic(src){
+    source = new Audio();
+    source.src = "musiques/" + src;
+    source.play();
+    source.volume = 0.5;
+    console.log(source);
+    for (var i = 0;i < 10;i++){
+        currentNotes[i] = notes[i];
+    }
+    animation();
+}

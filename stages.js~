@@ -1,0 +1,23 @@
+var niveauxT = [
+    ["trou","coffre","","arbre","","","arbre","","","arbre","","","arbre","","","arbre","","","","spike","","","","porte","","","arbre","","","coffre","trou","trou","trou","trou","","arbre","","","arbre","","","arbre"]
+];
+
+var niveaux = niveauxT;
+
+function initLevel(n,x){
+    for (var i = 0; i < 15;i++){
+        var nn = x - 7 + i;
+        actual[i] = niveaux[n][nn];
+    }
+}
+
+function getChestContent(niv,x){
+    if (niv == 0){
+        if (x > 10){
+            return "p1";
+        }
+        else {
+            return "p2";
+        }
+    }
+}

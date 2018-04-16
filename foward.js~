@@ -1,0 +1,38 @@
+function foward(){
+    if (select == 1){
+        action(actions[0]);
+        if (touche == 0) select = 0;
+    }
+    actions.forEach(
+        function (e,i){
+            if (i == actions.length -1) actions[i] = heros.chooseNext();
+            else actions[i] = actions[i+1];
+        }
+    );
+    scrollAct = 1;
+
+    initLevel(level,heros.getX());
+}
+
+function calculs(){
+    if (scrollAct > 0){
+        scrollAct -= 0.2;
+        if (scrollAct < 0) scrollAct = 0;
+    }
+    heros.act();
+}
+
+function action(tt){
+    if (tt == "p0"){
+        if (heros.getX() < niveaux[level].length){
+            heros.moveRight();
+	    particles[heros.getXscrolled()] = ["dash",0.8];
+            scrollPart();
+        }
+    }
+}
+
+function scrollPart(){
+    particles.splice(0,1);
+    particles.push([""]);
+}
