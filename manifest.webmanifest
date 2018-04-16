@@ -1,10 +1,10 @@
 {
-  "name": "Space Adventure",
-  "short_name": "SpaceAdv",
-  "start_url": "https://cavalcadeur.github.io/space-adventure/",
+  "name": "Zoev",
+  "short_name": "Zoev",
+  "start_url": "https://cavalcadeur.github.io/Zoev/",
   "display": "standalone",
   "background_color": "#fff",
-  "description": "Obviously the best game ever !",
+  "description": "I don't want to buy Voez so I made one myself.",
   "icons": [{
     "src": "images/logo48.png",
     "sizes": "48x48",

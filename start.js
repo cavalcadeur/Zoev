@@ -179,3 +179,5 @@ function addParticles(x){
     particles.push({x:x,y:horizon,s:largeur/2,type:0,n:largeur/16,trans:1,limite:W/8});
     particles.push({x:x+largeur/2,y:horizon-largeur/2,s:largeur/8,type:0,n:largeur/32,trans:1,limite:W/128});
 }
+
+start();
